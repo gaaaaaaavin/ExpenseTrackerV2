@@ -1,1 +1,0 @@
-clothing,entertainment,food,grooming,transportation,utilities,pet,medicine
