@@ -3,7 +3,6 @@ from tkinter import *
 import pathlib
 import os
 
-#cat=[,,"","","","","",""]
 def set_up_page():                              # Start page
     
     def confirmCate():                          # Confirms categories
@@ -73,16 +72,32 @@ def set_up_page():                              # Start page
     
     startpg.mainloop()
 
-
-
-def mainpg():                                   # Launches main.py (main application)
+def mainpg():
     import main
 
+def folder_exists(folder_name):
+    return pathlib.Path(folder_name).is_dir()
+def create_folder(folder):
+    try:
+        if not folder_exists(folder):
+            pathlib.Path(folder).mkdir(parents=True,exist_ok=True)
+    except OSError as e:
+        pass
+def delete_folder(folder):
+    try:
+        if folder_exists(folder):
+            pathlib.Path(folder).rmdir()
+    except OSError as e:
+        pass
+def sync_folder(folder):
+    delete_folder(folder)
+    create_folder(folder)
+def zipFolder():
+    return None
 
 catFile=pathlib.Path("logs\cat.txt")
+sync_folder("logs")
 if catFile.exists():
     mainpg()
 else:
     set_up_page()
-    
-    
