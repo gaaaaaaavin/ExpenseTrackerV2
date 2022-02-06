@@ -31,12 +31,15 @@ def zipFolder():
     return None
 
 def replace_line(fileName,lineNum,idd):
-    rlines=open(fileName,"r").readlines()
-    rlines[lineNum]="".join(idd+"\t0\t0-0000\tdeleted\t0\tdeleted\n")
-    out=open(fileName,"w")
-    print(type(rlines))
-    out.writelines(rlines)
-    out.close()
+    if idd!="0":
+        rlines=open(fileName,"r").readlines()
+        rlines[lineNum]="".join(idd+"\t0\t0-0000\tdeleted\t0\tdeleted\n")
+        out=open(fileName,"w")
+        print(type(rlines))
+        out.writelines(rlines)
+        out.close()
+    else:
+        pass
 
 def alldata():
     vdf=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
