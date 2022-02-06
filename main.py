@@ -32,7 +32,7 @@ def zipFolder():
 
 def replace_line(fileName,lineNum,idd):
     rlines=open(fileName,"r").readlines()
-    rlines[lineNum]="".join(idd+"\n")
+    rlines[lineNum]="".join(idd+"\t0\t0-0000\tdeleted\t0\tdeleted\n")
     out=open(fileName,"w")
     print(type(rlines))
     out.writelines(rlines)
@@ -213,6 +213,10 @@ def byYear():
         y=df["month-year"].values[x]
         monthSets.append(y)
     monthSets=list(dict.fromkeys(monthSets)) # each month with year (no dupes)
+    try:
+        monthSets.remove("0-0000")
+    except:
+        pass
     yearSets=list(dict.fromkeys([int(x[-4:]) for x in monthSets]))# each year (no dupes)
 
     
@@ -325,6 +329,10 @@ def totalCategoryYear():
         y=df["month-year"].values[x]
         monthSets.append(y)
     monthSets=list(dict.fromkeys(monthSets)) # each month with year (no dupes)
+    try:
+        monthSets.remove("0-0000")
+    except:
+        pass
     yearSets=list(dict.fromkeys([int(x[-4:]) for x in monthSets]))# each year (no dupes)
 
     
