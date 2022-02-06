@@ -6,7 +6,6 @@ import webbrowser
 import pandas as pd
 import time
 import matplotlib.pyplot as plt
-#5/2/22 v1
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -31,11 +30,19 @@ def sync_folder(folder):
 def zipFolder():
     return None
 
+def replace_line(fileName,lineNum,idd):
+    rlines=open(fileName,"r").readlines()
+    rlines[lineNum]="".join(idd+"\n")
+    out=open(fileName,"w")
+    print(type(rlines))
+    out.writelines(rlines)
+    out.close()
+
 def alldata():
-    vdf=pd.read_excel("logs\exp_log.xlsx","sheet1",index_col=[0])
+    vdf=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
     catSum=[] #sum each category
     for x in cat:
-        y=vdf.loc[df["category"]==x]
+        y=vdf.loc[vdf["category"]==x]
         catSum.append(y["amount"].sum())
     allData = Toplevel()
     allData.title("All Data")
@@ -90,21 +97,21 @@ def save():
     cate=catE.get()                              # item category
     expFile=pathlib.Path("logs\exp_log.txt")
     if x==True:
-        if expFile.exists():
-            pass
+        with open("logs\exp_log.txt","r") as file:
+            for x in file:
+                lastIndex=x.split("\t")[0]
+        if lastIndex=="index":
+            lastIndex=0
         else:
-            expFile=open("logs\exp_log.txt","a")
-            expFile.write("day\tmonth-year\titemname\tamount\tcategory\n")
-            expFile.close()
+            pass
+        indexId=int(lastIndex)+1
         expFile=open("logs\exp_log.txt","a")
-        log=[dom,"\t",date,"\t",itemname,"\t",itemamt,"\t",cate,"\n"]
+        log=[str(indexId),"\t",dom,"\t",date,"\t",itemname,"\t",itemamt,"\t",cate,"\n"]
         expFile.writelines(log)
         expFile.close()
-        df=pd.read_excel("logs/exp_log.xlsx","sheet1")
-        
         saveIndex=StringVar()
        
-        saveIndex.set(str(int(df["Unnamed: 0"].iloc[-1])+1))
+        saveIndex.set(indexId)
         savemsg="*saved\nIndex: "+saveIndex.get()
         label=Message(root,text=savemsg,fg="red")
         label.after("10000",label.destroy)
@@ -113,11 +120,6 @@ def save():
         clearSave()
     else:
         pass
-    df=pd.read_csv("logs\exp_log.txt",sep="\t")    #converts .txt to .xlsx
-    df.to_excel("logs\exp_log.xlsx","sheet1")
-
-
-
 
 def clearSave():
     itemNameE.delete(0,END)
@@ -151,7 +153,7 @@ def byMonth():
     byMonthBut=Button(byMonth,text="View Data",command=dataViewerbyMonth).place(x=40,y=65)
 def dataViewerbyMonth():
     date=byMMmonth.get()+"-"+byYYmonth.get() 
-    df=pd.read_excel("logs\exp_log.xlsx","sheet1")
+    df=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
     
     dateDF=df.loc[df["month-year"]==date] # new df from selected cate
     catSum=[] #sum each category
@@ -196,10 +198,16 @@ def dataViewerbyMonth():
     labSum=Label(dataByMonth,text=labSumMsg.get()).place(x=300,y=10)
 
 def byYear():
-    df=pd.read_excel("logs\exp_log.xlsx","sheet1")
-    totalEntries=df["Unnamed: 0"].iloc[-1]
-    totalEntries=int(totalEntries)
-    rangeOfEntries=list(range(0,totalEntries))
+    df=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
+    with open("logs\exp_log.txt","r") as file:
+        for x in file:
+            lastIndex=x.split("\t")[0]
+    if lastIndex=="index":
+        lastIndex=0
+    else:
+        pass
+    lastIndex=int(lastIndex)
+    rangeOfEntries=list(range(0,lastIndex))
     monthSets=[]
     for x in rangeOfEntries:
         y=df["month-year"].values[x]
@@ -255,7 +263,7 @@ def byYear():
             yearlySum[years]=yearTotal #sum per year
         text=Text(byYear,width=65,height=10)
         for x in yearlySum:
-            yd=pd.read_excel("logs\exp_log.xlsx","sheet1",index_col=None)
+            yd=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
             dateDF=yd[yd["month-year"].str.endswith(str(x), na = False)]# new df from selected cate
             dateDF=dateDF.loc[:, dateDF.columns !="Unnamed: 0"]
             text.insert(INSERT,dateDF)
@@ -302,10 +310,16 @@ def byYear():
 
 
 def totalCategoryYear():
-    df=pd.read_excel("logs\exp_log.xlsx","sheet1")
-    totalEntries=df["Unnamed: 0"].iloc[-1]
-    totalEntries=int(totalEntries)
-    rangeOfEntries=list(range(0,totalEntries))
+    df=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
+    with open("logs\exp_log.txt","r") as file:
+        for x in file:
+            lastIndex=x.split("\t")[0]
+    if lastIndex=="index":
+        lastIndex=0
+    else:
+        pass
+    lastIndex=int(lastIndex)
+    rangeOfEntries=list(range(0,lastIndex))
     monthSets=[]
     for x in rangeOfEntries:
         y=df["month-year"].values[x]
@@ -334,7 +348,7 @@ def totalCategoryYear():
         for x in select:
             selectedCateYears.append(yearDict[x])
         yearCateGraph={}
-        df=pd.read_excel("logs\exp_log.xlsx","sheet1")
+        df=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
         for year in selectedCateYears:
             yearDF=df[df["month-year"].str.endswith(str(year),na=False)] # looks through main df for years selected
             catSum=[] # sum of each category                             # and assigns it to yearDF
@@ -360,7 +374,7 @@ def totalCategoryYear():
             yearlySum[years]=yearTotal #sum per year
         text=Text(cateByYr,width=65,height=10)
         for x in yearlySum:
-            yd=pd.read_excel("logs\exp_log.xlsx","sheet1",index_col=None)
+            yd=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
             dateDF=yd[yd["month-year"].str.endswith(str(x), na = False)]# new df from selected cate
             dateDF=dateDF.loc[:, dateDF.columns !="Unnamed: 0"]
             text.insert(INSERT,dateDF)
@@ -417,28 +431,48 @@ def totalCategoryYear():
     but1=Button(cateByYr,text="View Graph",command=graph).place(x=150,y=10)
 
 def byIndex():
-    df=pd.read_excel("logs/exp_log.xlsx","sheet1")
-    totalEnteries=df["Unnamed: 0"].iloc[-1]
+    df=pd.read_csv("logs\exp_log.txt",sep="\t")
+    with open("logs\exp_log.txt","r") as file:
+        for x in file:
+            lastIndex=x.split("\t")[0]
     
-    def byIndexClick():
-        def confirm_delete(): #resize window
+    def byIndexClick():         #button to view entry
+        def confirm_delete():   #button to confirm entry delection      
             def del_entry():
-                pass
-                #df=df.drop([2094])
-            label3=Label(byIndexTk,text="Are you sure you want to delete entry "+indexSearch.get())
-            label3.place(x=10,y=160)
-            confirmBut=Button(byIndexTk,text="Delete "+indexSearch.get(),command=del_entry)
+                idIndex=str(indexSearch.get())
+                indexLs=[]
+                indexDict={}
+                with open("logs\exp_log.txt","r") as file:                  # gives indexs
+                    for x in file:
+                        indexLs.append(x.split("\t")[0])
+                with open("logs\exp_log.txt", 'r') as file:
+                    data = file.readlines()
+                for line in range(len(data)):                               # gives lines
+                    indexDict[indexLs[line]]=[line]                           # dict{"index":lineNo}
+                for tempId in indexDict[idIndex]:
+                    str(tempId)
+                replace_line("logs\exp_log.txt",tempId,idIndex)
+                df=pd.read_csv("logs\exp_log.txt",sep="\t")
+                byIndexTk.geometry("583x169")
+                label2=Text(byIndexTk,width=70,height=2)
+                label2.insert(INSERT,df.loc[df["index"]==indexSearch.get()])
+                label2.place(x=10,y=85)
+
+            byIndexTk.geometry("583x231")
+            label3=Label(byIndexTk,text="Are you sure you want to delete entry "+str(indexSearch.get()))
+            label3.place(x=10,y=165)
+            confirmBut=Button(byIndexTk,text="Delete "+str(indexSearch.get()),command=del_entry)
+            confirmBut.place(x=10,y=195)
+        df=pd.read_csv("logs\exp_log.txt",sep="\t")
         try:
-            checker=indexSearch.get()*1
-            byIndexTk.geometry("175x200")
+            checker=int(indexSearch.get())*1
+            byIndexTk.geometry("583x169")
             
             label2=Text(byIndexTk,width=70,height=2)
-            label2.insert(INSERT,df.loc[df["Unnamed: 0"]==indexSearch.get()])
+            label2.insert(INSERT,df.loc[df["index"]==indexSearch.get()])
             label2.place(x=10,y=85)
             delBut=Button(byIndexTk,text="Delete Entry",command=confirm_delete).place(x=10,y=135)
-            
-            
-            
+    
         except:
             messagebox.showerror("ERROR","Enter a number.")
         
@@ -446,28 +480,18 @@ def byIndex():
         
     indexSearch=IntVar()
     maxIndexAvail=IntVar()
-    maxIndexAvail.set(totalEnteries)
+    maxIndexAvail.set(lastIndex)
     
     byIndexTk=Toplevel()
     byIndexTk.geometry("175x70")
     byIndexTk.title("Specific Entry Viewer:")
     byIndexTk.iconbitmap(icon)
     
-    indexSearch=IntVar()
-    maxIndexAvail=IntVar()
-    maxIndexAvail.set(totalEnteries)
-    
     label1=Label(byIndexTk,text="Pick an entry from 0 to "+str(maxIndexAvail.get()))
     label1.place(x=10,y=10)
     
     indexInput=Entry(byIndexTk,width=15,textvariable=indexSearch).place(x=10,y=35)
     IndexButton=Button(byIndexTk,width=5,text="Search",command=byIndexClick).place(x=120,y=30)
-    
-    
-    
-    
-    
-    
 
 # Variables:
 icon="icon.ico"
@@ -488,17 +512,15 @@ ci5=cat[5]
 ci6=cat[6]
 ci7=cat[7]
 months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-expFile=pathlib.Path("logs\exp_log.xlsx")
+expFile=pathlib.Path("logs\exp_log.txt")
+
 sync_folder("logs")
 if expFile.exists():
     pass
 else:
     expFile=open("logs\exp_log.txt","a")
-    expFile.write("day\tmonth-year\titemname\tamount\tcategory\n")
+    expFile.write("index\tday\tmonth-year\titemname\tamount\tcategory\n")
     expFile.close()
-df=pd.read_csv("logs\exp_log.txt",sep="\t")    #converts .txt to .xlsx
-df.to_excel("logs\exp_log.xlsx","sheet1")
-df=pd.read_excel("logs\exp_log.xlsx","sheet1")
 
 catE=StringVar()
 catE.set(ci7)
