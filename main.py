@@ -628,14 +628,14 @@ itemAmt=StringVar()
 # Menu
 expMenu=Menu(root)
 root.config(menu=expMenu)
-file_menu=Menu(expMenu)                                             # File menu
+file_menu=Menu(expMenu,tearoff=0)                                             # File menu
 expMenu.add_cascade(label="File",menu=file_menu)
 file_menu.add_command(label="Save",command=save)                        # save
 file_menu.add_command(label="Clear",command=clearSave)                  # clear
 file_menu.add_command(label="Export",command=exportData)                  # export
 file_menu.add_separator()
 file_menu.add_command(label="Exit",command=root.quit)                   # exit
-data_menu=Menu(expMenu)                                             # ViewData menu
+data_menu=Menu(expMenu,tearoff=0)                                              # ViewData menu
 expMenu.add_cascade(label="View Data",menu=data_menu)
 data_menu.add_command(label="By Index",command=byIndex)                 # index
 data_menu.add_separator()
@@ -648,7 +648,7 @@ data_menu.add_separator()
 miss_dm=StringVar()
 miss_dm.set("missing data?\n restart")
 data_menu.add_command(label=miss_dm.get(),command=root.quit)#all
-help_menu=Menu(expMenu)                                             # Help menu
+help_menu=Menu(expMenu,tearoff=0)                                              # Help menu
 expMenu.add_cascade(label="Help",menu=help_menu)
 help_menu.add_command(label="Getting started",command=getting_started)         #add tutorial
 help_menu.add_command(label="Report bugs",command=contact)
