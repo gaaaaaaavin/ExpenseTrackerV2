@@ -27,12 +27,11 @@ def set_up_page():                              # Start page
             print("no")
         else:
             print("confirmCate func error")
-        
-    
-    
-    
+
+    icon="images\icon.ico"
     startpg=Tk()
     startpg.geometry("400x400")
+    startpg.iconbitmap(icon)
     
     cat0=StringVar()
     cat0.set("Clothing")
@@ -51,8 +50,6 @@ def set_up_page():                              # Start page
     cat7=StringVar()
     cat7.set("Other")
 
-    
-    
     lab1=Label(startpg,text="Before we start tracking, we've got to set a few things up").place(x=10,y=10)
     lab2=Label(startpg,text="Please type in Category titles or leave it with the default titles").place(x=10,y=30)
     catE0=Entry(startpg,width=15,textvariable=cat0).place(x=40,y=85)
@@ -66,13 +63,9 @@ def set_up_page():                              # Start page
     confirmBut=Button(startpg,width=10,text="Confirm",command=confirmCate).place(x=60,y=200)
     exitBut=Button(startpg,width=10,text="Exit",command=startpg.destroy).place(x=170,y=200)
 
-
-
-
-    
     startpg.mainloop()
 
-def mainpg():
+def mainpg():                                   # Launches main.py (main application)
     import main
 
 def folder_exists(folder_name):
