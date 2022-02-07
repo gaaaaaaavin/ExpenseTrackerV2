@@ -67,13 +67,13 @@
 ### **View Data**
 
 * By Index:
-  * [viewbyIndex](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_index.png)
+  * ![viewbyIndex](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_index.png)
   1) **Type the Index**
   2) **Click *Search***
   3) **Clicking *Delete Entry*** is an optional feature, incase you've accidentally saved an entry with incorrect infomation.
   4) **Click *Delete {index}*** acts as a confirmation before the entry is removed from your logs.
 * By Month:
-  * [viewbyMonth](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_month.png)
+  * ![viewbyMonth](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_month.png)
   1) A pop up window will appear in which you'll have to **select the Year and Month** you wish to view.
   2) Clicking the **View Pie Chart** will generate a pie chart of that month that shows the percentage of you expenses based on it's categories.
 * By Year:
