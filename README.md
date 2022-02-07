@@ -54,7 +54,7 @@
 
 ### **Saving an Entry:**
 
- ![entry](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/entry_index.png)
+  * ![entry](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/entry_index.png)
 
   1) **Add date** Todays date is selected by default based on your system's clock, but you'll be able to enter any date of your choice.
   2) **Add a name** for your expense. This wont be used by my application, but you might find labeling your entries if you ever want to look it up.
@@ -67,17 +67,17 @@
 ### **View Data**
 
 * By Index:
- ![viewbyIndex](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_index.png)
+  * [viewbyIndex](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_index.png)
   1) **Type the Index**
   2) **Click *Search***
   3) **Clicking *Delete Entry*** is an optional feature, incase you've accidentally saved an entry with incorrect infomation.
   4) **Click *Delete {index}*** acts as a confirmation before the entry is removed from your logs.
 * By Month:
- ![viewbyMonth](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_month.png)
+  * [viewbyMonth](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_month.png)
   1) A pop up window will appear in which you'll have to **select the Year and Month** you wish to view.
   2) Clicking the **View Pie Chart** will generate a pie chart of that month that shows the percentage of you expenses based on it's categories.
-By Year:
- ![viewbyYear](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_year.png)
+* By Year:
+  * ![viewbyYear](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_year.png)
   1) **Select Year(s)**
   2) **Click *View/Update Data*** This will generate a Textbox on your right with every entry in the range you've selected. It will also generate another popup window with the sum total of each selected year, including a total of years if more than one year is selected.
 
@@ -86,10 +86,10 @@ By Year:
 ##### ***Clicking *View/Update Data*** again after selecting a different year(s) will update the textbox)*
 
 * By Category:
- ![viewbyCategory](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_category.png)
+  * ![viewbyCategory](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_category.png)
    **See *By Year* as it covers the same thing except instead of months of the year, it evaluates your categories.**
 * All:  
- ![viewAll](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_year.png)
+  * ![viewAll](https://github.com/gaaaaaaavin/ExpenseTrackerV2/blob/main/images/help/view_by_year.png)
  Here you'll find every entry you've entered.
 
 ---
