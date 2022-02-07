@@ -1,4 +1,4 @@
-import os
+from PIL import ImageTk, Image as imag
 from tkinter import ttk,messagebox
 from tkinter import *
 import pathlib
@@ -50,7 +50,7 @@ def alldata():
     allData = Toplevel()
     allData.title("All Data")
     allData.geometry("515x345")
-    allData.iconbitmap=(icon)
+    allData.iconbitmap(icon)
     lab1=Label(allData,text="Scroll UP or DOWN:").place(x=90,y=135)
     text=Text(allData,width=90,height=20)
     text.insert(INSERT,vdf)
@@ -129,15 +129,93 @@ def clearSave():
     itemAmountE.delete(0,END)
 
 def contact():
-    info="message me on:\nhttps://github.com/gaaaaaaavin"
+    info="message me on:\ngavin_dsouza@live.com"
     messagebox.showinfo("Contact",info)
 
 def credit():
-    webbrowser.open_new_tab("https://github.com/gaaaaaaavin")
+    def githubLink():
+        webbrowser.open_new("https://github.com/gaaaaaaavin")
+    creditWindow=Toplevel()
+    creditWindow.title("Credits")
+    creditWindow.geometry("205x123")
+    creditWindow.iconbitmap(icon)
+    
+    credLabel1=Label(creditWindow,text="Author : Gavin John D'souza").place(x=10,y=10)
+    credLabel2=Label(creditWindow,text="Email : gavin_dsouza@live.com").place(x=10,y=35)
+    credLabel3=Label(creditWindow,text="Website : ").place(x=10,y=60)
+    credButto1=Button(creditWindow,text="https://github.com/gaaaaaaavin",command=githubLink).place(x=10,y=85)
 
-def tutorial():
-    pass
+def getting_started():
+    def new_entryH():
+        new_entryH=Toplevel()
+        new_entryH.iconbitmap(icon)
+        new_entryH.title("Adding an Entry:")
+        img=ImageTk.PhotoImage(imag.open("images\help\entry_index.png"))
+        panel=Label(new_entryH,image=img)
+        panel.pack(side="bottom",fill="both",expand="yes")
+        new_entryH.mainloop()
+    def by_indexH():
+        by_indexH=Toplevel()
+        by_indexH.iconbitmap(icon)
+        by_indexH.title("Searching for an Entry via Index:")
+        img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_index.png"))
+        panel=Label(by_indexH,image=img)
+        panel.pack(side="bottom",fill="both",expand="yes")
+        by_indexH.mainloop()
+    def by_monthH():
+        by_monthH=Toplevel()
+        by_monthH.iconbitmap(icon)
+        by_monthH.title("Searching for an Entry via Month:")
+        img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_month.png"))
+        panel=Label(by_monthH,image=img)
+        panel.pack(side="bottom",fill="both",expand="yes")
+        by_monthH.mainloop()
 
+    def by_yearH():
+        by_yearH=Toplevel()
+        by_yearH.iconbitmap(icon)
+        by_yearH.title("Searching for an Entry via Year:")
+        img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_year.png"))
+        panel=Label(by_yearH,image=img)
+        panel.pack(side="bottom",fill="both",expand="yes")
+        by_yearH.mainloop()
+
+
+    def by_categoryH():
+        by_categoryH=Toplevel()
+        by_categoryH.iconbitmap(icon)
+        by_categoryH.title("Viewing everything")
+        img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_category.png"))
+        panel=Label(by_categoryH,image=img)
+        panel.pack(side="bottom",fill="both",expand="yes")
+        by_categoryH.mainloop()
+
+    def allH():
+        allH=Toplevel()
+        allH.iconbitmap(icon)
+        allH.title("Adding an Entry:")
+        img=ImageTk.PhotoImage(imag.open("images\\help\\view_all.png"))
+        panel=Label(allH,image=img)
+        panel.pack(side="bottom",fill="both",expand="yes")
+        allH.mainloop()
+        
+    tutWin=Toplevel()
+    tutWin.title("Getting Started")
+    tutWin.geometry("300x165")
+    tutWin.iconbitmap(icon)
+    
+    tutLabel1=Label(tutWin,justify=LEFT,text="This application will help you track your expenses\nand which will be stored locally and can be analysed\nvia the 'View Data' menu")
+    tutLabel1.place(x=10,y=10)
+    tutButton1=Button(tutWin,width=15,text="Adding an Entry",command=new_entryH).place(x=10,y=70)
+    tutButton1=Button(tutWin,width=15,text="View by Index",command=by_indexH).place(x=10,y=100)
+    tutButton1=Button(tutWin,width=15,text="View by Month",command=by_monthH).place(x=10,y=130)
+    tutButton1=Button(tutWin,width=15,text="View by Year",command=by_yearH).place(x=175,y=70)
+    tutButton1=Button(tutWin,width=15,text="View by Category",command=by_categoryH).place(x=175,y=100)
+    tutButton1=Button(tutWin,width=15,text="View All",command=allH).place(x=175,y=130)
+    
+    
+    
+    
 def byMonth():
     global byMMmonth
     global byYYmonth
@@ -315,7 +393,6 @@ def byYear():
     lab1=Label(byYear,text="Scroll UP or DOWN:").place(x=185,y=215)
     but1=Button(byYear,text="View Graph",command=graph).place(x=150,y=10)
 
-
 def totalCategoryYear():
     df=pd.read_csv("logs\exp_log.txt",sep="\t",index_col="index")
     with open("logs\exp_log.txt","r") as file:
@@ -338,17 +415,12 @@ def totalCategoryYear():
         pass
     yearSets=list(dict.fromkeys([int(x[-4:]) for x in monthSets]))# each year (no dupes)
 
-    
-    
     cateByYr=Toplevel()
     cateByYr.geometry("145x235")
     cateByYr.iconbitmap(icon)
     cateByYr.title("View data by year")
     selYearL=Label(cateByYr,text="Year:").place(x=10,y=10)
 
-
-
-    
     def viewCateYears():
         global selectedCateYears
         
@@ -441,6 +513,13 @@ def totalCategoryYear():
     lab1=Label(cateByYr,text="Scroll UP or DOWN:").place(x=185,y=215)
     but1=Button(cateByYr,text="View Graph",command=graph).place(x=150,y=10)
 
+def exportData():
+    df=pd.read_csv("logs\exp_log.txt",sep="\t")
+    dfxlsx=pd.ExcelWriter("expenses.xlsx")
+    df.to_excel(dfxlsx,index=False)
+    dfxlsx.save()
+    messagebox.showinfo("Export Data","File has been exported as 'expenses.xlsx'")
+
 def byIndex():
     df=pd.read_csv("logs\exp_log.txt",sep="\t")
     with open("logs\exp_log.txt","r") as file:
@@ -505,11 +584,12 @@ def byIndex():
     IndexButton=Button(byIndexTk,width=5,text="Search",command=byIndexClick).place(x=120,y=30)
 
 # Variables:
-icon="icon.ico"
+icon="images\icon.ico"
 root=Tk()
 root.title("Expense Tracker")
 root.iconbitmap(icon)
 root.geometry("320x250")
+
 catFileDF=pd.read_csv("logs\cat.txt")
 cat=[]
 for x in catFileDF:
@@ -552,6 +632,7 @@ file_menu=Menu(expMenu)                                             # File menu
 expMenu.add_cascade(label="File",menu=file_menu)
 file_menu.add_command(label="Save",command=save)                        # save
 file_menu.add_command(label="Clear",command=clearSave)                  # clear
+file_menu.add_command(label="Export",command=exportData)                  # export
 file_menu.add_separator()
 file_menu.add_command(label="Exit",command=root.quit)                   # exit
 data_menu=Menu(expMenu)                                             # ViewData menu
@@ -569,7 +650,7 @@ miss_dm.set("missing data?\n restart")
 data_menu.add_command(label=miss_dm.get(),command=root.quit)#all
 help_menu=Menu(expMenu)                                             # Help menu
 expMenu.add_cascade(label="Help",menu=help_menu)
-help_menu.add_command(label="Getting started",command=tutorial)         #add tutorial
+help_menu.add_command(label="Getting started",command=getting_started)         #add tutorial
 help_menu.add_command(label="Report bugs",command=contact)
 help_menu.add_separator()
 help_menu.add_command(label="Credits",command=credit)
@@ -593,14 +674,14 @@ itemAmountE.place(x=80,y=60)
 
 # Category
 CategoryL=Label(root,text="Category: ").place(x=10,y=85)
-c1=ttk.Radiobutton(root,text=ci0,variable=catE,value=ci0).place(x=80,y=85)
-c2=ttk.Radiobutton(root,text=ci1,variable=catE,value=ci1).place(x=80,y=110)
-c3=ttk.Radiobutton(root,text=ci2,variable=catE,value=ci2).place(x=80,y=135)
-c4=ttk.Radiobutton(root,text=ci3,variable=catE,value=ci3).place(x=80,y=160)
-c5=ttk.Radiobutton(root,text=ci4,variable=catE,value=ci4).place(x=200,y=85)
-c6=ttk.Radiobutton(root,text=ci5,variable=catE,value=ci5).place(x=200,y=110)
-c7=ttk.Radiobutton(root,text=ci6,variable=catE,value=ci6).place(x=200,y=135)
-c8=ttk.Radiobutton(root,text=ci7,variable=catE,value=ci7).place(x=200,y=160)
+c1=ttk.Radiobutton(root,text=ci0.title(),variable=catE,value=ci0).place(x=80,y=85)
+c2=ttk.Radiobutton(root,text=ci1.title(),variable=catE,value=ci1).place(x=80,y=110)
+c3=ttk.Radiobutton(root,text=ci2.title(),variable=catE,value=ci2).place(x=80,y=135)
+c4=ttk.Radiobutton(root,text=ci3.title(),variable=catE,value=ci3).place(x=80,y=160)
+c5=ttk.Radiobutton(root,text=ci4.title(),variable=catE,value=ci4).place(x=200,y=85)
+c6=ttk.Radiobutton(root,text=ci5.title(),variable=catE,value=ci5).place(x=200,y=110)
+c7=ttk.Radiobutton(root,text=ci6.title(),variable=catE,value=ci6).place(x=200,y=135)
+c8=ttk.Radiobutton(root,text=ci7.title(),variable=catE,value=ci7).place(x=200,y=160)
 
 
 
@@ -609,4 +690,3 @@ saveInput=Button(root,text="Save",width=10,command=save).place(x=70,y=195)
 clearInput=Button(root,text="Clear",width=10,command=clearSave).place(x=180,y=195)
 
 root.mainloop()
-
