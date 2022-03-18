@@ -10,6 +10,11 @@ import matplotlib.pyplot as plt
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 
+def insertIcon(x):                  # default for windows, except for linux
+    try:
+        x.iconbitmap(icon)
+    except:
+        pass
 def folder_exists(folder_name):
     return pathlib.Path(folder_name).is_dir()
 def create_folder(folder):
@@ -50,7 +55,7 @@ def alldata():
     allData = Toplevel()
     allData.title("All Data")
     allData.geometry("515x345")
-    allData.iconbitmap(icon)
+    insertIcon(allData)
     lab1=Label(allData,text="Scroll UP or DOWN:").place(x=90,y=135)
     text=Text(allData,width=90,height=20)
     text.insert(INSERT,vdf)
@@ -138,7 +143,7 @@ def credit():
     creditWindow=Toplevel()
     creditWindow.title("Credits")
     creditWindow.geometry("205x123")
-    creditWindow.iconbitmap(icon)
+    insertIcon(creditWindow)
     
     credLabel1=Label(creditWindow,text="Author : Gavin John D'souza").place(x=10,y=10)
     credLabel2=Label(creditWindow,text="Email : gavin_dsouza@live.com").place(x=10,y=35)
@@ -148,7 +153,7 @@ def credit():
 def getting_started():
     def new_entryH():
         new_entryH=Toplevel()
-        new_entryH.iconbitmap(icon)
+        insertIcon(new_entryH)
         new_entryH.title("Adding an Entry:")
         img=ImageTk.PhotoImage(imag.open("images\help\entry_index.png"))
         panel=Label(new_entryH,image=img)
@@ -156,7 +161,7 @@ def getting_started():
         new_entryH.mainloop()
     def by_indexH():
         by_indexH=Toplevel()
-        by_indexH.iconbitmap(icon)
+        insertIcon(by_indexH)
         by_indexH.title("Searching for an Entry via Index:")
         img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_index.png"))
         panel=Label(by_indexH,image=img)
@@ -164,7 +169,7 @@ def getting_started():
         by_indexH.mainloop()
     def by_monthH():
         by_monthH=Toplevel()
-        by_monthH.iconbitmap(icon)
+        insertIcon(by_monthH)
         by_monthH.title("Searching for an Entry via Month:")
         img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_month.png"))
         panel=Label(by_monthH,image=img)
@@ -173,7 +178,7 @@ def getting_started():
 
     def by_yearH():
         by_yearH=Toplevel()
-        by_yearH.iconbitmap(icon)
+        insertIcon(by_yearH)
         by_yearH.title("Searching for an Entry via Year:")
         img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_year.png"))
         panel=Label(by_yearH,image=img)
@@ -183,7 +188,7 @@ def getting_started():
 
     def by_categoryH():
         by_categoryH=Toplevel()
-        by_categoryH.iconbitmap(icon)
+        insertIcon(by_categoryH)
         by_categoryH.title("Viewing everything")
         img=ImageTk.PhotoImage(imag.open("images\\help\\view_by_category.png"))
         panel=Label(by_categoryH,image=img)
@@ -192,7 +197,7 @@ def getting_started():
 
     def allH():
         allH=Toplevel()
-        allH.iconbitmap(icon)
+        insertIcon(allH)
         allH.title("Adding an Entry:")
         img=ImageTk.PhotoImage(imag.open("images\\help\\view_all.png"))
         panel=Label(allH,image=img)
@@ -202,7 +207,7 @@ def getting_started():
     tutWin=Toplevel()
     tutWin.title("Getting Started")
     tutWin.geometry("300x165")
-    tutWin.iconbitmap(icon)
+    insertIcon(tutWin)
     
     tutLabel1=Label(tutWin,justify=LEFT,text="This application will help you track your expenses\nand which will be stored locally and can be analysed\nvia the 'View Data' menu")
     tutLabel1.place(x=10,y=10)
@@ -225,7 +230,7 @@ def byMonth():
     byYYmonth.set(time.strftime("%Y"))
     byMonth=Toplevel()
     byMonth.geometry("150x100")
-    byMonth.iconbitmap(icon)
+    insertIcon(byMonth)
     byMonth.title("View data by month")
     selYearL=Label(byMonth,text="Year:").place(x=10,y=10)
     selYear=Spinbox(byMonth,width=5,from_=1000,to=9999,textvariable=byYYmonth).place(x=80,y=10)
@@ -256,7 +261,7 @@ def dataViewerbyMonth():
     dataByMonth = Toplevel()
     dataByMonth.title(date)
     dataByMonth.geometry("800x400")
-    dataByMonth.iconbitmap(icon)
+    insertIcon(dataByMonth)
     def pie():    
         plt.show()
     lab1=Label(dataByMonth,text="Scroll UP or DOWN:").place(x=185,y=135)
@@ -304,7 +309,7 @@ def byYear():
     
     byYear=Toplevel()
     byYear.geometry("145x235")
-    byYear.iconbitmap(icon)
+    insertIcon(byYear)
     byYear.title("View data by year")
     selYearL=Label(byYear,text="Year:").place(x=10,y=10)
 
@@ -358,7 +363,7 @@ def byYear():
         tempgeo="200x"+str(40*yrlen-10)
         yearSum.geometry(tempgeo)
         yearSum.title("Yearly Sum:")
-        yearSum.iconbitmap(icon)
+        insertIcon(yearSum)
         year_sum=str(sum(list(yearlySum.get(x) for x in yearlySum)))
         
         ytt=StringVar()
@@ -417,7 +422,7 @@ def totalCategoryYear():
 
     cateByYr=Toplevel()
     cateByYr.geometry("145x235")
-    cateByYr.iconbitmap(icon)
+    insertIcon(cateByYr)
     cateByYr.title("View data by year")
     selYearL=Label(cateByYr,text="Year:").place(x=10,y=10)
 
@@ -468,7 +473,7 @@ def totalCategoryYear():
         tempgeo="200x"+str(40*catlen-10)
         yearSum.geometry(tempgeo)
         yearSum.title("Yearly Category Sum:")
-        yearSum.iconbitmap(icon)
+        insertIcon(yearSum)
         
         cateGraph={}
         for x in range(len(cat)):
@@ -575,7 +580,7 @@ def byIndex():
     byIndexTk=Toplevel()
     byIndexTk.geometry("175x70")
     byIndexTk.title("Specific Entry Viewer:")
-    byIndexTk.iconbitmap(icon)
+    insertIcon(byIndexTk)
     
     label1=Label(byIndexTk,text="Pick an entry from 0 to "+str(maxIndexAvail.get()))
     label1.place(x=10,y=10)
@@ -587,7 +592,7 @@ def byIndex():
 icon="images\icon.ico"
 root=Tk()
 root.title("Expense Tracker")
-root.iconbitmap(icon)
+insertIcon(root)
 root.geometry("320x250")
 
 catFileDF=pd.read_csv("logs\cat.txt")
